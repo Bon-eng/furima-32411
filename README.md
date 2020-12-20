@@ -7,17 +7,18 @@
 
 ## users　テーブル
 
-| Column          | Type    | Options      |
-| --------------- | ------- | ------------ |
-| nickname        | string  | null: false  |
-| email           | string  | unique: true |
-| password        | string  | null: false  |
-| last_name       | string  | null: false  |
-| first_name      | string  | null: false  |
-| last_name_kana  | string  | null: false  |
-| first_name_kana | string  | null: false  |
-| birthday        | integer | null: false  |
+| Column             | Type    | Options      |
+| ------------------ | ------- | ------------ |
+| nickname           | string  | null: false  |
+| email              | string  | unique: true |
+| encrypted_password | string  | null: false  |
+| last_name          | string  | null: false  |
+| first_name         | string  | null: false  |
+| last_name_kana     | string  | null: false  |
+| first_name_kana    | string  | null: false  |
+| date               | integer | null: false  |
 
+<!--誕生日カラムはdate型-->
 
 ### Association
 - has_many :items
@@ -26,32 +27,33 @@
 
 ## items　テーブル
 
-| Column       | Type       | Options           |
-| ------------ | ---------- | ----------------- |
-| products     | text       | null: false       |
-| introduction | text       | null: false       |
-| category     | string     | null: false       |
-| status       | string     | null: false       |
-| postage      | string     | null: false       |
-| days_to_ship | string     | null: false       |
-| price        | integer    | null: false       |
-| user_id      | references | foreign_key: true |
+| Column           | Type       | Options           |
+| ---------------- | ---------- | ----------------- |
+| products         | string     | null: false       |
+| introduction     | text       | null: false       |
+| category_id      | integer    | null: false       |
+| status_id        | integer    | null: false       |
+| postage_id       | integer    | null: false       |
+| shipping_area_id | integer    | null: false       |
+| days_to_ship_id  | integer    | null: false       |
+| price            | integer    | null: false       |
+| user             | references | foreign_key: true |
 
 
 ### Association
 - belongs_to :user
 - has_one :purchase
-- has_one :destination
 
 
 
 ## purchases　テーブル
 
-| Column     | Type       | Options           |
-| ---------- | ---------- | ----------------- |
-| user_id    | references | foreign_key: true |
-| product_id | references | foreign_key: true |
+| Column  | Type       | Options           |
+| ------- | ---------- | ----------------- |
+| user    | references | foreign_key: true |
+| product | references | foreign_key: true |
 
+<!--references型にするときは_idは自動付与のため記述なし-->
 
 ### Association
 - belongs_to :user
@@ -62,16 +64,20 @@
 
 ## destinations　テーブル
 
-| Column        | Type    | Options     |
-| ------------- | ------- | ----------- |
-| post_code     | integer | null: false |
-| prefecture    | string  | null: false |
-| city          | string  | null: false |
-| address       | string  | null: false |
-| building_name | string  | null: false |
-| phone_number  | integer | null: false |
+| Column        | Type       | Options           |
+| ------------- | ---------- | ----------------- |
+| post_code     | string     | null: false       |
+| prefecture_id | integer    | null: false       |
+| city          | string     | null: false       |
+| address       | string     | null: false       |
+| building_name | string     |                   |
+| phone_number  | string     | null: false       |
+| user          | references | foreign_key: true |
 
+<!--郵便番号にはハイフンがいるのでstring型に-->
+<!--都道府県はactive_hashのためinteger型に-->
+<!--建物名は任意のため制約必要なし-->
+<!--電話番号をinteger型で保存すると先頭の0が省略されてしまう為string型にする-->
 
 ### Association
-- belongs_to :item
 - belongs_to :purchase
