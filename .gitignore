@@ -29,3 +29,5 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+#⬇️不要な変更履歴がGitで管理されないようにするため
+.Ds_Store
