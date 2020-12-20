@@ -7,16 +7,16 @@
 
 ## users　テーブル
 
-| Column             | Type    | Options      |
-| ------------------ | ------- | ------------ |
-| nickname           | string  | null: false  |
-| email              | string  | unique: true |
-| encrypted_password | string  | null: false  |
-| last_name          | string  | null: false  |
-| first_name         | string  | null: false  |
-| last_name_kana     | string  | null: false  |
-| first_name_kana    | string  | null: false  |
-| date               | integer | null: false  |
+| Column             | Type    | Options                   |
+| ------------------ | ------- | ------------------------- |
+| nickname           | string  | null: false               |
+| email              | string  | null: false, unique: true |
+| encrypted_password | string  | null: false               |
+| last_name          | string  | null: false               |
+| first_name         | string  | null: false               |
+| last_name_kana     | string  | null: false               |
+| first_name_kana    | string  | null: false               |
+| birthday           | date    | null: false               |
 
 <!--誕生日カラムはdate型-->
 
@@ -29,16 +29,17 @@
 
 | Column           | Type       | Options           |
 | ---------------- | ---------- | ----------------- |
-| products         | string     | null: false       |
+| name             | string     | null: false       |
 | introduction     | text       | null: false       |
 | category_id      | integer    | null: false       |
 | status_id        | integer    | null: false       |
 | postage_id       | integer    | null: false       |
-| shipping_area_id | integer    | null: false       |
+| prefecture_id    | integer    | null: false       |
 | days_to_ship_id  | integer    | null: false       |
 | price            | integer    | null: false       |
 | user             | references | foreign_key: true |
 
+<!--都道府県と配送元地域を別々に分けず同じものとして管理-->
 
 ### Association
 - belongs_to :user
