@@ -12,8 +12,6 @@ RSpec.describe Item, type: :model do
     end
   end
 
-  # binding.pry
-
   context '新規登録がうまくいかないとき' do
     it '商品画像を1枚つけることが必須であること' do
       @item.image = nil
