@@ -129,9 +129,11 @@
       <%# @itemsにはコントローラーで生成したインスタンス変数で、itemが全部入ってる。それをeach〜doで全部取り出す %>
       <% @items.each do |item| %>
       <li class='list'>
+      <%# ⬇️link_toの記述でクリックしたらそのitemに飛ぶように %>
+        <%= link_to item_path(item.id) do %>
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
-
+          
 <%#!!!!!!!!!!!!!!!!!!sold outの表示は購入実装の時に併せて実装。テーブル作ってないからまだやらないよ!!!!!!!!!!!!!!!!!!!!!!!%>
 
           <%# 商品が売れていればsold outを表示しましょう %>
@@ -156,6 +158,7 @@
             </div>
           </div>
         </div>
+        <% end %>
       <% end %>
       </li>
       <%# ⬇️⬇️⬇️⬇itemがない場合にダミー画像を表示されないようにするのは、length==0で記述⬇️⬇️⬇️ %>
