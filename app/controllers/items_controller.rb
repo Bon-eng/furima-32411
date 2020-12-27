@@ -18,6 +18,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
   private
 
   # itemsテーブルとusersテーブルを結び付けないと保存ができないのでmergeを使う。二時間ハマったで？？
