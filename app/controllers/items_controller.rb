@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
-  
-  before_action :authenticate_user!, only: [:new, :edit]
-  before_action :find_item, only: [:show, :edit, :update]
+
+  before_action :authenticate_user!, only: [:new, :edit, :destroy]
+  before_action :find_item, only: [:show, :edit, :update, :destroy]
+
 
   def index
     @items = Item.order('created_at DESC')
@@ -27,11 +28,23 @@ class ItemsController < ApplicationController
     redirect_to root_path unless current_user.id == @item.user_id
   end
 
+  #updateができたらroot_pathにredirect
   def update
-    if @item.update(item_params)
+    @item.update(item_params)
+    if @item.save
       redirect_to root_path
     else
       render :edit
+    end
+  end
+
+  #destroyができたらroot_pathにredirect
+  def destroy
+    redirect_to root_path unless current_user.id == @item.user_id
+    if @item.destroy
+      redirect_to root_path
+    else
+      redirect_to root_path
     end
   end
 
@@ -45,6 +58,7 @@ class ItemsController < ApplicationController
     ).merge(user_id: current_user.id)
   end
 
+  #かぶっている⬇️メソッドをbefore_actionでまとめるために定義
   def find_item
     @item = Item.find(params[:id])
   end
