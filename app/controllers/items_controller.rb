@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  
   before_action :authenticate_user!, only: [:new, :edit]
   before_action :find_item, only: [:show, :edit, :update, :destroy]
 
@@ -20,15 +21,19 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @item = Item.find(params[:id])
   end
 
   def edit
+    @item = Item.find(params[:id])
     redirect_to root_path unless current_user.id == @item.user_id
   end
 
   #updateができたらroot_pathにredirect
   def update
-    if @item.update(item_params)
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+    if @item.save
       redirect_to root_path
     else
       render :edit
@@ -51,8 +56,10 @@ class ItemsController < ApplicationController
     ).merge(user_id: current_user.id)
   end
 
-  def find_item
-    @item = Item.find(params[:id])
+  def move_to_index
+    unless user_signed_in?
+      redirect_to action: :index
+    end
   end
 
 end
