@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :item do
+    
     name            { '怒ってるの？' }
     introduction    { 'ポメんね' }
     category_id     { 2 }

@@ -134,13 +134,13 @@
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
           
-<%#!!!!!!!!!!!!!!!!!!sold outの表示は購入実装の時に併せて実装。テーブル作ってないからまだやらないよ!!!!!!!!!!!!!!!!!!!!!!!%>
-
-          <%# 商品が売れていればsold outを表示しましょう %>
-          <%# <div class='sold-out'>
-            <span>Sold Out!!</span>
-          </div> %>
-          <%# //商品が売れていればsold outを表示しましょう %>
+          <%# ⬇️⬇️⬇️商品が売れていたらsold out表示⬇️⬇️⬇️ %>
+          <% if item.purchase.present? %> 
+            <div class='sold-out'>
+                <span>Sold Out!!</span>
+            </div>
+          <% end %>
+          <%# ⬆️⬆️⬆️商品が売れていたらsold out表示⬆️⬆️⬆️ %>
 
         </div>
         <div class='item-info'>

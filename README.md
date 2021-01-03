@@ -54,6 +54,7 @@
 | user    | references | foreign_key: true |
 | item    | references | foreign_key: true |
 
+
 <!--references型にするときは_idは自動付与のため記述なし-->
 
 ### Association
@@ -73,7 +74,7 @@
 | address       | string     | null: false       |
 | building_name | string     |                   |
 | phone_number  | string     | null: false       |
-| user          | references | foreign_key: true |
+| purchase      | references | foreign_key: true |
 
 <!--郵便番号にはハイフンがいるのでstring型に-->
 <!--都道府県はactive_hashのためinteger型に-->
