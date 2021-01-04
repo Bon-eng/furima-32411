@@ -18,13 +18,8 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :introduction
-    validates :price, format: { with: /\A[0-9]+\z/ },
-                      numericality: {
-                        greater_than_or_equal_to: 300,
-                        less_than_or_equal_to: 9_999_999
-                      }
 
-    with_options numericality: { other_than: 1 } do
+    with_options numericality: { other_than: 1, message: "を入力して下さい"} do
       validates :category_id
       validates :status_id
       validates :postage_id
@@ -32,4 +27,10 @@ class Item < ApplicationRecord
       validates :days_to_ship_id
     end
   end
+
+  with_options presence: true, format: { with: /\A[0-9]+\z/, message: 'を入力して下さい'} do
+  validates :price
+  numericality: {greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999}
+  end
+
 end

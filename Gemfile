@@ -67,4 +67,6 @@ gem 'image_processing', '~> 1.2'
 
 gem 'active_hash'
 
-gem 'payjp'
+gem 'payjp'                     #クレカ支払い対応Gem
+
+gem 'rails-i18n'                #日本語対応Gem
