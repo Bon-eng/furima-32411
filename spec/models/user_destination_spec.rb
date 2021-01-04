@@ -61,6 +61,18 @@ RSpec.describe UserDestination, type: :model do
         expect(@user_destination.errors.full_messages).to include("Phone number is invalid. Input half-width characters.")
       end
 
+      it '電話番号が12桁以上では購入できない' do
+        @user_destination.phone_number = '123456789012'
+        @user_destination.valid?
+        expect(@user_destination.errors.full_messages).to include("Phone number is invalid. Input half-width characters.")
+      end
+
+      it '電話番号が英数字混合では購入できない' do
+        @user_destination.phone_number = 'a234567890'
+        @user_destination.valid?
+        expect(@user_destination.errors.full_messages).to include("Phone number is invalid. Input half-width characters.")
+      end
+
       it 'user_idがない場合は購入できない' do
         @user_destination.user_id = nil
         @user_destination.valid?

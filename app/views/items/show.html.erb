@@ -28,17 +28,13 @@
     </div>
 
     <%# ⬇️⬇️⬇️ログイン中ユーザーであることを条件にするif文⬇️⬇️⬇️ %>
-    <% if user_signed_in? %>                                                   <%# 「ユーザーがログイン状態かどうか？」分岐 %>
-      <% if current_user.id == @item.user_id %>                                <%# 「ログインユーザーが出品者と同じであるか？」分岐 %>
-        <% unless @item.purchase.present? %>                                   <%# 商品が購入済になっていなければ、編集&削除ボタンを表示させる %>
+    <% if user_signed_in? && @item.purchase == nil %>                                  <%# 「ユーザーがログイン状態かどうか？」＆「商品が販売中であるか？」分岐 %>
+      <% if current_user.id == @item.user_id %>                                        <%# 「ログインユーザーが出品者と同じであるか？」分岐 %>
           <%= link_to '商品の編集', edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
           <p class='or-text'>or</p>
           <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
-        <% end %>
-      <% else %>                                                               <%# 「ログインユーザーが出品者と同じではない」 %>
-        <% unless @item.purchase.present? %>                                   <%# 商品が購入済になっていなければ、購入画面に進むボタンを表示させる %>
+      <% else %>                                                                       <%# 「ログインユーザーが出品者と同じではなく、 商品が販売中であれば」購入画面に進むボタンを表示させる %>
           <%= link_to '購入画面に進む', item_orders_path(@item.id),class:"item-red-btn"%>
-        <% end %>
       <% end %>
     <% end %>
     <%# ⬆️⬆️⬆️ログイン中ユーザーであることを条件にするif文⬆️⬆️⬆️ %>

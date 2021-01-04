@@ -1,20 +1,17 @@
 class OrdersController < ApplicationController
 
   before_action :authenticate_user!, only: [:index, :create]
+  before_action :find_item, only: [:index, :create]
 
   def index
     @user_destination = UserDestination.new
-    @item = Item.find(params[:item_id])
-    if current_user == @item.user                 #出品者が自分の商品ページの購入URLにダイレクトに飛ぼうとするとトップページにリダイレクトさせる
-      redirect_to root_path
-    elsif @item.purchase != nil                   #売り切れている商品ページの購入URLにダイレクトに飛ぼうとするとトップページにリダイレクト（商品に紐ついている注文テーブルidが存在している場合という意味
-      redirect_to root_path
-    end
+    if current_user == @item.user || @item.purchase != nil   #出品者が自分の商品ページの購入URLにダイレクトに飛ぼうとするとトップページにリダイレクトさせる↪️
+      redirect_to root_path                                  #売り切れている商品ページの購入URLにダイレクトに飛ぼうとするとトップページにリダイレクト（商品に紐ついている注文テーブルidが存在している場合という意味
+    end                                                      #「||」を使い条件式①または②のときに処理をすると記述し、リダイレクトへの繰り返しを避ける
   end
-  
+
   def create
     @user_destination = UserDestination.new(destination_params)
-    @item = Item.find(params[:item_id])
       if @user_destination.valid?                 #バリデーションを正常に通過したら決済処理を行う
         pay_item                                  #可読性向上のためprivateメソッドでpay_itemを定義
         @user_destination.save
@@ -40,5 +37,9 @@ class OrdersController < ApplicationController
       currency: 'jpy'                                  # 通貨の種類（日本円）
     )
   end
-  
+
+  def find_item
+    @item = Item.find(params[:item_id])
+  end
+
 end
