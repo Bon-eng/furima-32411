@@ -82,7 +82,7 @@ RSpec.describe User, type: :model do
     it 'last_nameが必須であること' do
       @user.last_name = ''
       @user.valid?
-      expect(@user.errors.full_messages).to include("お名前(名字)を入力してください", "お名前(名字)は不正な値です")
+      expect(@user.errors.full_messages).to include("お名前(名字)を入力してください")
     end
 
     it 'first_nameが必須であること' do
@@ -94,13 +94,13 @@ RSpec.describe User, type: :model do
     it 'last_nameが全角漢字、カタカナ、ひらがなでの入力が必須であること' do
       @user.last_name = 'a1#'
       @user.valid?
-      expect(@user.errors.full_messages).to include("お名前(名字)は不正な値です")
+      expect(@user.errors.full_messages).to include("お名前(名字)を全角で入力して下さい")
     end
 
     it 'first_nameが全角漢字、カタカナ、ひらがなでの入力が必須であること' do
       @user.first_name = 'a1#'
       @user.valid?
-      expect(@user.errors.full_messages).to include("お名前(名前)は不正な値です")
+      expect(@user.errors.full_messages).to include("お名前(名前)を全角で入力して下さい")
     end
 
     it 'last_name_kanaが必須であること' do

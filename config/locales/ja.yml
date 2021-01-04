@@ -19,7 +19,10 @@ ja:
         prefecture_id: 発送元の地域
         days_to_ship_id: 発送までの日数
         price: 販売価格
-
+# ⬆️⬆️⬆️Active Record⬆️⬆️⬆️
+# ⬇️⬇️⬇️Actice Model⬇️⬇️⬇️ 階層を変えていないので日本語化できなかった
+  activemodel:
+    attributes:
       user_destination:
         post_code: 郵便番号
         prefecture_id: 都道府県
