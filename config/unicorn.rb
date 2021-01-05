@@ -10,8 +10,8 @@ working_directory app_path
 #Unicornの起動に必要なファイルの設置場所を指定（Unicornは、起動する際にプロセスidが書かれたファイルを生成する、その場所を指定する
 pid "#{app_path}/tmp/pids/unicorn.pid"
 
-#ポート番号を指定（どのポート番号のリクエストを受け付けるかを決定
-listen 3000
+#ポート番号を指定（どのポート番号のリクエストを受け付けるかを決定（Nginxを介した処理に変更したため、保存場所を3000から変更した
+listen "#{app_path}/tmp/sockets/unicorn.sock"
 
 #エラーのログを記録するファイルを指定
 stderr_path "#{app_path}/log/unicorn.stderr.log"
