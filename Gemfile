@@ -67,6 +67,8 @@ gem 'image_processing', '~> 1.2'
 
 gem 'active_hash'
 
-gem 'payjp'                     #クレカ支払い対応Gem
+gem 'payjp'                        #クレカ支払い対応Gem
 
-gem 'rails-i18n'                #日本語対応Gem
+gem 'rails-i18n'                   #日本語対応Gem
+
+gem "aws-sdk-s3", require: false   #S3使用のためのGem
