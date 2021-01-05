@@ -72,3 +72,7 @@ gem 'payjp'                        #クレカ支払い対応Gem
 gem 'rails-i18n'                   #日本語対応Gem
 
 gem "aws-sdk-s3", require: false   #S3使用のためのGem
+
+group :production do               #Unicorn使用のためのGem
+  gem 'unicorn', '5.4.1'
+end
